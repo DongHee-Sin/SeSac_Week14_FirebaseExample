@@ -17,6 +17,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
+        // 메서드 스위즐링
+        UIViewController.swizzleMethod()
+        
+        
+        // Firebase 등록
         FirebaseApp.configure()
         
         
@@ -36,6 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
           application.registerUserNotificationSettings(settings)
         }
 
+        // APNs 등록
         application.registerForRemoteNotifications()
                 
         
@@ -44,13 +50,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         
         // 현재 등록된 토큰 가져오기
-        Messaging.messaging().token { token, error in
-          if let error = error {
-            print("Error fetching FCM registration token: \(error)")
-          } else if let token = token {
-            print("FCM registration token: \(token)")
-          }
-        }
+//        Messaging.messaging().token { token, error in
+//          if let error = error {
+//            print("Error fetching FCM registration token: \(error)")
+//          } else if let token = token {
+//            print("FCM registration token: \(token)")
+//          }
+//        }
         
         return true
     }
@@ -78,6 +84,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 // MARK: - UNUserNotificationCenterDelegate 프로토콜 채택
 extension AppDelegate: UNUserNotificationCenterDelegate {
     
+    // Remote Notification이 등록되면 호출
     func application(application: UIApplication,
                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
       Messaging.messaging().apnsToken = deviceToken
@@ -88,8 +95,17 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // ex카톡: OO님과 채팅방, 푸시마다 설정, 화면마다 설정
     func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
         
-        // .banner, .list: iOS 14+
-        completionHandler([.badge, .sound, .banner, .list])
+        // 특정 화면에서는 푸시를 보내지 마라! (라는 분기처리도 가능)
+        guard let viewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController?.topViewController else { return }
+        
+        if viewController is SettingViewController {
+            // return하거나, 특정 요소만 받도록 분거처리도 가능
+            completionHandler([.badge])
+            
+        }else {
+            // .banner, .list: iOS 14+
+            completionHandler([.badge, .sound, .banner, .list])
+        }
         
     }
     
@@ -97,10 +113,9 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
     // 푸시 클릭: ex. 호두과자 장바구니에 담는 화면까지 넘어가는...
     // 유저가 푸시를 클릭했을 때에만 수신 확인 가능 (잘 보내졌는지? 확인하는건 불가능)
     func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
-        print("사용자가 푸시를 클릭했습니다.")
         
-        print(response.notification.request.content.body)
-        print(response.notification.request.content.userInfo)
+        print("Body: \(response.notification.request.content.body)")
+        print("userInfo: \(response.notification.request.content.userInfo)")
         
         let userInfo = response.notification.request.content.userInfo
         
@@ -109,6 +124,21 @@ extension AppDelegate: UNUserNotificationCenterDelegate {
         }else {
             print("NOTHING")
         }
+        
+        
+        guard let viewController = (UIApplication.shared.connectedScenes.first?.delegate as? SceneDelegate)?.window?.rootViewController?.topViewController else { return }
+        
+        if viewController is ViewController {
+            viewController.navigationController?.pushViewController(SettingViewController(), animated: true)
+            
+        }else if viewController is ProfileViewController {
+            viewController.dismiss(animated: true)
+            
+        }else if viewController is SettingViewController {
+            viewController.navigationController?.popViewController(animated: true)
+        }
+        
+        print(viewController)
     }
 }
 
