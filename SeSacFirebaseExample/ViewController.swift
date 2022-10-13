@@ -14,15 +14,15 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
         
-//        Analytics.logEvent("share_image", parameters: [
-//            "name": "고래밥",
-//            "full_text": "안녕",
-//        ])
-//
-//        Analytics.setDefaultEventParameters([
-//            "level_name": "Caverns01",
-//            "level_difficulty": 4
-//        ])
+        Analytics.logEvent("share_image", parameters: [
+            "name": "고래밥",
+            "full_text": "안녕",
+        ])
+
+        Analytics.setDefaultEventParameters([
+            "level_name": "Caverns01",
+            "level_difficulty": 4
+        ])
         
         
         let button = UIButton(type: .roundedRect)

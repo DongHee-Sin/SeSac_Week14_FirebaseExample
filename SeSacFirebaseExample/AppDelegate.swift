@@ -8,6 +8,7 @@
 import UIKit
 import FirebaseCore
 import FirebaseMessaging
+import RealmSwift
 
 
 @main
@@ -15,6 +16,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        // 마이그레이션
+        aboutRealmMigration()
         
         
         // 메서드 스위즐링
@@ -76,6 +80,70 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
 
+}
+
+
+
+// MARK: - 마이그레이션
+extension AppDelegate {
+    
+    func aboutRealmMigration() {
+        
+        // deleteRealmIfMigrationNeeded: 마이그레이션이 필요한 경우 기존 렘 삭제
+        // Realm Browser 닫고 다시 열기!!
+//        let config = Realm.Configuration(schemaVersion: 1, deleteRealmIfMigrationNeeded: true)
+//
+//        Realm.Configuration.defaultConfiguration = config
+        
+        
+        
+        let config = Realm.Configuration(schemaVersion: 6) { migration, oldSchemaVersion in
+            
+            // 컬럼의 단순 추가/삭제의 경우엔 별도 코드 필요 없음!
+            // 테이블이 추가되는 경우에도!!
+            if oldSchemaVersion < 1 { }
+            
+            if oldSchemaVersion < 2 { }
+            
+            if oldSchemaVersion < 3 {
+                migration.renameProperty(onType: Todo.className(), from: "importance", to: "favorite")
+            }
+            
+            if oldSchemaVersion < 4 {
+                migration.enumerateObjects(ofType: Todo.className()) { oldObject, newObject in
+                    guard let new = newObject else { return }
+                    guard let old = oldObject else { return }
+                    
+                    new["userDescription"] = "\(old["title"])의 중요도 : \(old["favorite"])"
+                }
+            }
+            
+            if oldSchemaVersion < 5 {
+                // 컬럼을 추가하면서 기본값을 제공하는 목적으로도 사용할 수 있다.
+                migration.enumerateObjects(ofType: Todo.className()) { _, newObject in
+                    guard let new = newObject else { return }
+                    
+                    new["count"] = 100
+                }
+            }
+            
+            if oldSchemaVersion < 6 {
+                migration.enumerateObjects(ofType: Todo.className()) { oldObject, newObject in
+                    guard let new = newObject else { return }
+                    guard let old = oldObject else { return }
+                    
+                    // Int => Double 타입변환은 반드시 성공하기 때문에, 형변환 코드를 작성하지 않아도 괜춘!
+                    new["favorite"] = old["favorite"]
+                    
+                    // 만약 Optional Type => non Optional Type으로 변환이라면?
+                    // 형변환 코드와 기본값을 제공하는 코드가 필요!
+                }
+            }
+        }
+        
+        Realm.Configuration.defaultConfiguration = config
+    }
+    
 }
 
 
