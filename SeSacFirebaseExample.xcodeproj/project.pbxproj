@@ -75,8 +75,7 @@
 			children = (
 				D01F47D928F4F23B00617F11 /* SeSacFirebaseExample.entitlements */,
 				D076A30028F79A030092CFAB /* Todo.swift */,
-				D040F92928ED82BE0000FABA /* AppDelegate.swift */,
-				D040F92B28ED82BE0000FABA /* SceneDelegate.swift */,
+				D0A31C8428FCDC2700ABA00E /* App */,
 				D040F92D28ED82BE0000FABA /* ViewController.swift */,
 				D076A30228F79BAB0092CFAB /* MigrationViewController.swift */,
 				D040F92F28ED82BE0000FABA /* Main.storyboard */,
@@ -86,6 +85,15 @@
 				D040F93D28ED846C0000FABA /* GoogleService-Info.plist */,
 			);
 			path = SeSacFirebaseExample;
+			sourceTree = "<group>";
+		};
+		D0A31C8428FCDC2700ABA00E /* App */ = {
+			isa = PBXGroup;
+			children = (
+				D040F92928ED82BE0000FABA /* AppDelegate.swift */,
+				D040F92B28ED82BE0000FABA /* SceneDelegate.swift */,
+			);
+			path = App;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

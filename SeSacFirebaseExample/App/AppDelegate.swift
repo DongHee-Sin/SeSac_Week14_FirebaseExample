@@ -17,8 +17,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
+        
+        // Realm List 마이그레이션
+        let config = Realm.Configuration(schemaVersion: 3) { migration, oldSchemaVersion in
+            
+            if oldSchemaVersion < 1 {  // DetailTodo, List 추가
+                
+            }
+            
+            if oldSchemaVersion < 2 {  // Embeded Object 추가
+                 
+            }
+            
+            if oldSchemaVersion < 3 {  // DetailTodo에 Deadline 추가
+                
+            }
+            
+        }
+        
+        Realm.Configuration.defaultConfiguration = config
+        
+        
+        
         // 마이그레이션
-        aboutRealmMigration()
+        //aboutRealmMigration()
         
         
         // 메서드 스위즐링
