@@ -10,6 +10,7 @@
 		D01F47D428F4ED3600617F11 /* FirebaseAnalyticsWithoutAdIdSupport in Frameworks */ = {isa = PBXBuildFile; productRef = D01F47D328F4ED3600617F11 /* FirebaseAnalyticsWithoutAdIdSupport */; };
 		D01F47D628F4ED3600617F11 /* FirebaseCrashlytics in Frameworks */ = {isa = PBXBuildFile; productRef = D01F47D528F4ED3600617F11 /* FirebaseCrashlytics */; };
 		D01F47D828F4ED3600617F11 /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = D01F47D728F4ED3600617F11 /* FirebaseMessaging */; };
+		D03A1E5F28FE4DBD00B5CD2B /* SimpleCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D03A1E5E28FE4DBD00B5CD2B /* SimpleCollectionViewController.swift */; };
 		D040F92A28ED82BE0000FABA /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040F92928ED82BE0000FABA /* AppDelegate.swift */; };
 		D040F92C28ED82BE0000FABA /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040F92B28ED82BE0000FABA /* SceneDelegate.swift */; };
 		D040F92E28ED82BE0000FABA /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = D040F92D28ED82BE0000FABA /* ViewController.swift */; };
@@ -25,6 +26,7 @@
 
 /* Begin PBXFileReference section */
 		D01F47D928F4F23B00617F11 /* SeSacFirebaseExample.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = SeSacFirebaseExample.entitlements; sourceTree = "<group>"; };
+		D03A1E5E28FE4DBD00B5CD2B /* SimpleCollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleCollectionViewController.swift; sourceTree = "<group>"; };
 		D040F92628ED82BE0000FABA /* SeSacFirebaseExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SeSacFirebaseExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D040F92928ED82BE0000FABA /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		D040F92B28ED82BE0000FABA /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -79,6 +81,7 @@
 				D040F92D28ED82BE0000FABA /* ViewController.swift */,
 				D076A30228F79BAB0092CFAB /* MigrationViewController.swift */,
 				D040F92F28ED82BE0000FABA /* Main.storyboard */,
+				D03A1E5E28FE4DBD00B5CD2B /* SimpleCollectionViewController.swift */,
 				D040F93228ED82BF0000FABA /* Assets.xcassets */,
 				D040F93428ED82BF0000FABA /* LaunchScreen.storyboard */,
 				D040F93728ED82BF0000FABA /* Info.plist */,
@@ -206,6 +209,7 @@
 				D040F92A28ED82BE0000FABA /* AppDelegate.swift in Sources */,
 				D076A30328F79BAB0092CFAB /* MigrationViewController.swift in Sources */,
 				D040F92C28ED82BE0000FABA /* SceneDelegate.swift in Sources */,
+				D03A1E5F28FE4DBD00B5CD2B /* SimpleCollectionViewController.swift in Sources */,
 				D076A30128F79A030092CFAB /* Todo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

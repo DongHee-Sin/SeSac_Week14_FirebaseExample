@@ -77,14 +77,14 @@ class MigrationViewController: UIViewController {
         
         
         // 특정 Todo에 메모 추가 (Embeded Object)
-        guard let task = localRealm.objects(Todo.self).filter("title = '고래밥의 할일 6'").first else { return }
-        
-        let memo = Memo()
-        memo.content = "CONTENT"
-        memo.date = Date()
-        
-        try! localRealm.write {
-            task.memo = memo
-        }
+//        guard let task = localRealm.objects(Todo.self).filter("title = '고래밥의 할일 6'").first else { return }
+//
+//        let memo = Memo()
+//        memo.content = "CONTENT"
+//        memo.date = Date()
+//
+//        try! localRealm.write {
+//            task.memo = memo
+//        }
     }
 }
